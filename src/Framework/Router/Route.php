@@ -9,12 +9,15 @@ class Route
     private $regex;
     private $variables;
     private $arguments;
-    private $handler;
+    private $controller;
+    private $action;
+    private $callback;
 
-    public function __construct(string $method, callable $handler, string $regex, array $variables)
+    public function __construct(string $method, string $controller, string $action, string $regex, array $variables)
     {
         $this->method = $method;
-        $this->handler = $handler;
+        $this->controller = $controller;
+        $this->action = $action;
         $this->regex = $regex;
         $this->variables = $variables;
     }
@@ -45,8 +48,16 @@ class Route
 
     public function dispatch()
     {
-        $callback = call_user_func_array($this->handler, $this->arguments);
+        $callback = [$this->controller, $this->action];
+        $this->callback = !empty($callback[1]) && trim($callback[1]) !== '' ? $callback[1] : null;
 
-        return $callback;
+        if (!is_null($this->callback)) {
+            $instance = new $callback[0];
+            call_user_func_array([$instance, $this->action], $this->arguments);
+        } else {
+            $instance = new $callback[0]($this->arguments);
+        }
+
+        return $instance;
     }
 }

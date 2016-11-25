@@ -1,4 +1,13 @@
 <?php
 declare(strict_types = 1);
 
-require __DIR__ . '/../src/Board/Bootstrap/Bootstrap.php';
+use LapisAngularis\Senshu\Framework\Core\Kernel;
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+error_reporting(E_ALL);
+
+$environment = 'dev';
+$senshuApp = new Kernel($environment);
+
+$senshuApp->initialize();
