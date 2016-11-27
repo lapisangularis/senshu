@@ -4,10 +4,11 @@ declare(strict_types = 1);
 namespace LapisAngularis\Senshu\Framework\DependencyInjection;
 
 use LapisAngularis\Senshu\Framework\Config\CoreRouteMapper;
+use LapisAngularis\Senshu\Framework\Config\CoreMainConfig;
 use LapisAngularis\Senshu\Framework\Http\HttpRequest;
 use LapisAngularis\Senshu\Framework\Router\RouteCollection;
-use LapisAngularis\Senshu\Framework\Config\RouteMapper;
 use LapisAngularis\Senshu\Framework\Router\Router;
+use LapisAngularis\Senshu\Framework\Service\Template\TwigService;
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
 
@@ -30,6 +31,13 @@ class CoreDependencyManager implements DependencyManagerInterface
        $this->services[$name] = $service;
 
         return $this;
+    }
+
+    public function bootMainConfig()
+    {
+        $this->setContainer('ophagacore.config.main',
+            new CoreMainConfig($this)
+        );
     }
 
     public function bootServices()
@@ -59,6 +67,10 @@ class CoreDependencyManager implements DependencyManagerInterface
 
         $this->setContainer('ophagacore.error.prettypage',
             new PrettyPageHandler()
+        );
+
+        $this->setContainer('ophagacore.templates.twig',
+            new TwigService($this->getContainer('ophagacore.config.main')->getConfigs())
         );
 
         return $this;

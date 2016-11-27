@@ -10,7 +10,9 @@ class IndexController extends BaseController
 {
     public function indexAction()
     {
-        $content = 'This is index.';
+        $content = $this->renderTwigTemplate('index.html.twig', [
+            'mainContent' => 'PHP7 based Imageboard'
+        ]);
 
         return $this->standardResponse(new HttpResponse(), [
             'content' => $content,

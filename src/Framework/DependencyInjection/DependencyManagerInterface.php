@@ -7,5 +7,7 @@ interface DependencyManagerInterface
 {
     public function getContainer(string $name);
     public function setContainer(string $name, $service);
+    public function bootMainConfig();
     public function bootServices();
+    public function bootDevServices();
 }

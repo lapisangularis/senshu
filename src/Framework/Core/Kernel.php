@@ -8,12 +8,12 @@ use LapisAngularis\Senshu\Framework\DependencyInjection\CoreDependencyManager;
 class Kernel
 {
     const NAME = 'OphagaCore';
-    const VERSION = '0.0.5';
+    const VERSION = '0.0.6';
     const RELEASE_VERSION = 0;
     const FEATURE_VERSION = 0;
-    const PATCH_VERSION = 5;
+    const PATCH_VERSION = 6;
     const VERSION_CODENAME = 'PreAlpha';
-    const VERSION_ID = 5;
+    const VERSION_ID = 6;
 
     protected $env = 'prod';
     protected $dependencyManager;
@@ -57,11 +57,25 @@ class Kernel
         return $this->getEnvironment() === 'dev' ? true : false;
     }
 
-    protected function initializeContainers()
+    protected function initializeDependencyManager()
     {
         $this->dependencyManager = new CoreDependencyManager();
+
+        return $this;
+    }
+
+    protected function initializeContainers()
+    {
         $this->initializeKernelContainer();
         $this->isDevMode() ? $this->dependencyManager->bootDevServices() : $this->dependencyManager->bootServices();
+
+        return $this;
+    }
+
+    protected function bootConfig()
+    {
+        $this->dependencyManager->bootMainConfig();
+        $this->dependencyManager->getContainer('ophagacore.config.main')->createConfig();
 
         return $this;
     }
@@ -90,7 +104,7 @@ class Kernel
         return $this;
     }
 
-    protected function createConfig()
+    protected function createRoutes()
     {
         $this->dependencyManager->getContainer('ophagacore.config.routes')->createRoutes();
 
@@ -104,9 +118,11 @@ class Kernel
 
     public function initialize()
     {
+        $this->initializeDependencyManager();
+        $this->bootConfig();
         $this->initializeContainers();
         $this->handleDevErrors();
-        $this->createConfig();
+        $this->createRoutes();
         $this->handle();
     }
 }

@@ -29,4 +29,11 @@ abstract class BaseController
         echo $response->getContent();
         return $response;
     }
+
+    public function renderTwigTemplate(string $template, array $variables = [])
+    {
+        $twig = $this->dependencyManager->getContainer('ophagacore.templates.twig')->loadTemplateEngine();
+
+        return $twig->render($template, $variables);
+    }
 }
