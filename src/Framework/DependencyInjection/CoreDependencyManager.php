@@ -3,16 +3,17 @@ declare(strict_types = 1);
 
 namespace LapisAngularis\Senshu\Framework\DependencyInjection;
 
+use LapisAngularis\Senshu\Framework\Config\CoreRouteMapper;
 use LapisAngularis\Senshu\Framework\Http\HttpRequest;
 use LapisAngularis\Senshu\Framework\Router\RouteCollection;
-use LapisAngularis\Senshu\Board\Config\RouteMapper;
+use LapisAngularis\Senshu\Framework\Config\RouteMapper;
 use LapisAngularis\Senshu\Framework\Router\Router;
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
 
 class CoreDependencyManager implements DependencyManagerInterface
 {
-    private $services = [];
+    protected $services = [];
 
     public function getContainer(string $name)
     {
@@ -24,14 +25,14 @@ class CoreDependencyManager implements DependencyManagerInterface
         return $this->services;
     }
 
-    public function setContainer(string $name, $service): self
+    public function setContainer(string $name, $service)
     {
        $this->services[$name] = $service;
 
         return $this;
     }
 
-    public function bootServices(): self
+    public function bootServices()
     {
         $this->setContainer('ophagacore.http.request',
             new HttpRequest($_GET, $_POST, $_COOKIE, $_SERVER)
@@ -42,7 +43,7 @@ class CoreDependencyManager implements DependencyManagerInterface
         );
 
         $this->setContainer('ophagacore.config.routes',
-            new RouteMapper($this->getContainer('ophagacore.route.collection'))
+            new CoreRouteMapper($this->getContainer('ophagacore.route.collection'), $this)
         );
 
         $this->setContainer('ophagacore.route.router',
@@ -63,7 +64,7 @@ class CoreDependencyManager implements DependencyManagerInterface
         return $this;
     }
 
-    public function bootDevServices(): self
+    public function bootDevServices()
     {
         $this->bootServices();
 

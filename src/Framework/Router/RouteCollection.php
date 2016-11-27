@@ -11,8 +11,8 @@ class RouteCollection
     {
         $regex = Parser::parsePathToRegex($route);
         $variables = Parser::parsePathArguments($route);
-        $fullPath = $config['classBasePath'] . $controller;
-        $collectionItem = new Route($httpMethod, $fullPath, $action, $regex, $variables);
+        $fullPath = $config['classBasePath'] . '\\' . $controller;
+        $collectionItem = new Route($httpMethod, $fullPath, $action, $regex, $variables, $config);
         $this->routes[] = $collectionItem;
 
         return $this;
