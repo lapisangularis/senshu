@@ -11,4 +11,5 @@ interface MainConfigInterface
     public function getConfigs(): array;
     public function getConfig(string $name);
     public function createConfig();
+    public function createDevConfig();
 }

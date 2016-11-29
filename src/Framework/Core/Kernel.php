@@ -8,12 +8,12 @@ use LapisAngularis\Senshu\Framework\DependencyInjection\CoreDependencyManager;
 class Kernel
 {
     const NAME = 'OphagaCore';
-    const VERSION = '0.0.6';
+    const VERSION = '0.0.7';
     const RELEASE_VERSION = 0;
     const FEATURE_VERSION = 0;
-    const PATCH_VERSION = 6;
+    const PATCH_VERSION = 7;
     const VERSION_CODENAME = 'PreAlpha';
-    const VERSION_ID = 6;
+    const VERSION_ID = 7;
 
     protected $env = 'prod';
     protected $dependencyManager;
@@ -75,7 +75,8 @@ class Kernel
     protected function bootConfig()
     {
         $this->dependencyManager->bootMainConfig();
-        $this->dependencyManager->getContainer('ophagacore.config.main')->createConfig();
+        $container = $this->dependencyManager->getContainer('ophagacore.config.main');
+        $this->isDevMode() ? $container->createDevConfig() : $container->createConfig();
 
         return $this;
     }

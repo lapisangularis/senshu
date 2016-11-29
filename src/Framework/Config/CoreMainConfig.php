@@ -32,4 +32,11 @@ class CoreMainConfig implements MainConfigInterface
         $this->config = $config;
         return $this;
     }
+
+    public function createDevConfig()
+    {
+        $this->createConfig();
+
+        return $this;
+    }
 }

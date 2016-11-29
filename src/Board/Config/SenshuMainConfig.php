@@ -17,4 +17,12 @@ class SenshuMainConfig extends CoreMainConfig
         $this->config = $config;
         return $this;
     }
+
+    public function createDevConfig()
+    {
+        $this->createConfig();
+        $this->config['twig.compilation.cache'] = false;
+
+        return $this;
+    }
 }
