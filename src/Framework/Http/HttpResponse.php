@@ -49,6 +49,15 @@ class HttpResponse implements HttpResponseInterface
         return $this;
     }
 
+    public function sendAllHttpHeaders(): self
+    {
+        foreach ($this->getHeaders() as $header) {
+            header($header, false);
+        }
+
+        return $this;
+    }
+
     public function addCookie(HttpCookie $cookie): self
     {
         $this->cookies[$cookie->getName()] = $cookie;

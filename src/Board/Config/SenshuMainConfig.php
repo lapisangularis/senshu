@@ -11,7 +11,8 @@ class SenshuMainConfig extends CoreMainConfig
     {
         $config = [
             'twig.resource.path' => __DIR__.'/../Resources/Templates',
-            'twig.compilation.cache' => __DIR__.'/../../../cache/twig'
+            'twig.compilation.cache' => __DIR__.'/../../../cache/twig',
+            'template.engine' => 'twig'
         ];
 
         $this->config = $config;

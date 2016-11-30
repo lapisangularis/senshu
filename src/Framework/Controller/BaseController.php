@@ -6,7 +6,7 @@ namespace LapisAngularis\Senshu\Framework\Controller;
 use LapisAngularis\Senshu\Framework\DependencyInjection\DependencyManagerInterface;
 use LapisAngularis\Senshu\Framework\Http\HttpResponse;
 
-abstract class BaseController
+abstract class BaseController implements ControllerInterface
 {
     protected $dependencyManager;
     protected $httpRequest;
@@ -17,23 +17,34 @@ abstract class BaseController
         $this->httpRequest = $dependencyManager->getContainer('ophagacore.http.request');
     }
 
-    public function standardResponse(HttpResponse $response, array $data): HttpResponse
+    public function standardResponse(array $data): HttpResponse
     {
+        $response = new HttpResponse();
         $response->setContent($data['content']);
         $response->setStatusCode($data['statusCode']);
-
-        foreach ($response->getHeaders() as $header) {
-            header($header, false);
-        }
+        $response->sendAllHttpHeaders();
 
         echo $response->getContent();
         return $response;
     }
 
-    public function renderTwigTemplate(string $template, array $variables = [])
+    public function redirectResponse(array $data): HttpResponse
     {
-        $twig = $this->dependencyManager->getContainer('ophagacore.templates.twig')->loadTemplateEngine();
+        $response = new HttpResponse();
+        $response->redirect($data['url']);
+        $response->sendAllHttpHeaders();
 
-        return $twig->render($template, $variables);
+        echo $response->getContent();
+        return $response;
+    }
+
+    public function renderTemplate(string $template, array $variables = []): string
+    {
+        $arguments = [
+            'template' => $template,
+            'variables' => $variables
+        ];
+
+        return $this->dependencyManager->getContainer('ophagacore.middleware.templates')->render($arguments);
     }
 }
