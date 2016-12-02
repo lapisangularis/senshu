@@ -38,7 +38,7 @@ class HttpRequest implements HttpRequestInterface
 
     public function getParameters(): array
     {
-        return array_merge($this->getParameters, $this->postParameters);
+        return array_merge($this->getGetParameters, $this->getPostParameters);
     }
 
     public function getGetParameter(string $key): ?string
