@@ -46,7 +46,7 @@ class RouteCollection
         $this->addRoute('HEAD', $route, $controller, $action, $config);
     }
 
-    public function getRoutes(): array
+    public function getRoutes(): iterable
     {
         return $this->routes;
     }

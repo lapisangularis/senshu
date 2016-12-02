@@ -8,13 +8,8 @@ use LapisAngularis\Senshu\Framework\Router\RouteCollection;
 
 class CoreRouteMapper implements RouteMapperInterface
 {
-    private $collection;
-    private $config = [];
-
     public function __construct(RouteCollection $collection, DependencyManagerInterface $dependencyManager)
     {
-        $this->collection = $collection;
-        $this->config['dependencyManager'] = $dependencyManager;
     }
 
     public function createRoutes(): void

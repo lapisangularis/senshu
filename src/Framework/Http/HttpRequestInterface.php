@@ -13,7 +13,7 @@ interface HttpRequestInterface
     public function getPostParameters(): array;
     public function getInput(): string;
     public function getCookie(string $key): ?HttpCookie;
-    public function getCookies(): array;
+    public function getCookies(): iterable;
     public function getServerVariable(string $key): string;
     public function getUri(): string;
     public function getUriPath(): string;

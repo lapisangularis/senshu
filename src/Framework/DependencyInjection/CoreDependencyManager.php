@@ -24,7 +24,7 @@ class CoreDependencyManager implements DependencyManagerInterface
         return $this->services[$name];
     }
 
-    public function getContainers(): array
+    public function getContainers(): iterable
     {
         return $this->services;
     }

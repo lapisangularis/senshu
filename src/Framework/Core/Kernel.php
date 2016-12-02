@@ -7,13 +7,13 @@ use LapisAngularis\Senshu\Framework\DependencyInjection\CoreDependencyManager;
 
 class Kernel
 {
-    const NAME = 'OphagaCore';
-    const VERSION = '0.0.8';
-    const RELEASE_VERSION = 0;
-    const FEATURE_VERSION = 0;
-    const PATCH_VERSION = 8;
-    const VERSION_CODENAME = 'alpha';
-    const VERSION_ID = 8;
+    public const NAME = 'OphagaCore';
+    public const VERSION = '0.0.9';
+    public const RELEASE_VERSION = 0;
+    public const FEATURE_VERSION = 0;
+    public const PATCH_VERSION = 9;
+    public const VERSION_CODENAME = 'alpha';
+    public const VERSION_ID = 9;
 
     protected $env = 'prod';
     protected $dependencyManager;
@@ -89,7 +89,7 @@ class Kernel
             $errorHandler->pushHandler($prettyPageHandler);
         } else {
             $errorHandler->pushHandler(function($e){
-                die ('omg you broke the internet :/');
+                echo "omg, you broke the internet\n";
             });
         }
 

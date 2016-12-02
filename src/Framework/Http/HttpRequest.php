@@ -14,7 +14,7 @@ class HttpRequest implements HttpRequestInterface
     public function __construct(
         array $get,
         array $post,
-        array $cookies,
+        iterable $cookies,
         array $server,
         string $input = ''
     ) {
@@ -80,7 +80,7 @@ class HttpRequest implements HttpRequestInterface
         return $this->input;
     }
 
-    public function getCookies(): array
+    public function getCookies(): iterable
     {
         return $this->cookies;
     }

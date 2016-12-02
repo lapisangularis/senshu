@@ -20,9 +20,9 @@ class TwigService implements TemplateInterface
     public function loadTemplateEngine(): void
     {
         $loader = new Twig_Loader_Filesystem($this->config['twig.resource.path']);
-        $this->twig = new Twig_Environment($loader, array(
+        $this->twig = new Twig_Environment($loader, [
             'cache' => $this->config['twig.compilation.cache'],
-        ));
+        ]);
     }
 
     public function getEngine(): Twig_Environment
@@ -30,7 +30,7 @@ class TwigService implements TemplateInterface
         return $this->twig;
     }
 
-    public function render(string $template, array $variables): string
+    public function render(string $template, iterable $variables): string
     {
         return $this->twig->render($template, $variables);
     }

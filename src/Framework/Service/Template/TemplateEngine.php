@@ -11,7 +11,7 @@ class TemplateEngine implements CompositeInterface
     protected $templateEngines = [];
     protected $config;
 
-    public function __construct(MainConfigInterface $config, array $templateEngines = [])
+    public function __construct(MainConfigInterface $config, iterable $templateEngines = [])
     {
         $this->config = $config;
         $this->templateEngines = $templateEngines;
