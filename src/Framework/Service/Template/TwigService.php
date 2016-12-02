@@ -17,14 +17,12 @@ class TwigService implements TemplateInterface
         $this->config = $config->getConfigs();
     }
 
-    public function loadTemplateEngine(): self
+    public function loadTemplateEngine(): void
     {
         $loader = new Twig_Loader_Filesystem($this->config['twig.resource.path']);
         $this->twig = new Twig_Environment($loader, array(
             'cache' => $this->config['twig.compilation.cache'],
         ));
-
-        return $this;
     }
 
     public function getEngine(): Twig_Environment

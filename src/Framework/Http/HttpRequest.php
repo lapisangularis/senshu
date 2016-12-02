@@ -25,7 +25,7 @@ class HttpRequest implements HttpRequestInterface
         $this->input = $input;
     }
 
-    public function getParameter(string $key): mixed
+    public function getParameter(string $key): ?string
     {
         if (array_key_exists($key, $this->postParameters)) {
             return $this->postParameters[$key];
@@ -41,7 +41,7 @@ class HttpRequest implements HttpRequestInterface
         return array_merge($this->getParameters, $this->postParameters);
     }
 
-    public function getGetParameter(string $key) : mixed
+    public function getGetParameter(string $key): ?string
     {
         if (array_key_exists($key, $this->getParameters)) {
             return $this->getParameters[$key];
@@ -54,7 +54,7 @@ class HttpRequest implements HttpRequestInterface
         return $this->getParameters;
     }
 
-    public function getPostParameter(string $key): mixed
+    public function getPostParameter(string $key): ?string
     {
         if (array_key_exists($key, $this->postParameters)) {
             return $this->postParameters[$key];
@@ -67,7 +67,7 @@ class HttpRequest implements HttpRequestInterface
         return $this->postParameters;
     }
 
-    public function getCookie(string $key): mixed
+    public function getCookie(string $key): ?HttpCookie
     {
         if (array_key_exists($key, $this->cookies)) {
             return $this->cookies[$key];

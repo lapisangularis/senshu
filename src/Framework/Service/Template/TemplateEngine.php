@@ -18,20 +18,16 @@ class TemplateEngine implements CompositeInterface
         $this->boot($this->config->getConfig('template.engine'));
     }
 
-    public function boot(string $name): self
+    public function boot(string $name): void
     {
         if (array_key_exists($name, $this->templateEngines)) {
             $this->templateEngines[$this->config->getConfig('template.engine')]->loadTemplateEngine();
         }
-
-        return $this;
     }
 
-    public function add(TemplateInterface $templateEngine, string $name): self
+    public function add(TemplateInterface $templateEngine, string $name): void
     {
         $this->templateEngines[$name] = new $templateEngine($this->config);
-
-        return $this;
     }
 
     public function getEngine(string $name): TemplateInterface

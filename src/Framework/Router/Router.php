@@ -16,7 +16,7 @@ class Router
         $this->httpRequest = $httpRequest;
     }
 
-    public function matchRequest()
+    public function matchRequest(): void
     {
         $requestMethod = $this->httpRequest->getMethod();
         $requestPath = $this->httpRequest->getUri();
@@ -37,8 +37,6 @@ class Router
             }
 
             $route->dispatch();
-            return $route;
         }
-        return false;
     }
 }

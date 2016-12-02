@@ -7,7 +7,7 @@ use LapisAngularis\Senshu\Framework\Config\CoreMainConfig;
 
 class SenshuMainConfig extends CoreMainConfig
 {
-    public function createConfig()
+    public function createConfig(): void
     {
         $config = [
             'twig.resource.path' => __DIR__.'/../Resources/Templates',
@@ -16,14 +16,11 @@ class SenshuMainConfig extends CoreMainConfig
         ];
 
         $this->config = $config;
-        return $this;
     }
 
-    public function createDevConfig()
+    public function createDevConfig(): void
     {
         $this->createConfig();
         $this->config['twig.compilation.cache'] = false;
-
-        return $this;
     }
 }

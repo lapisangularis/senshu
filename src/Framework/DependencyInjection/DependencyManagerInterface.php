@@ -6,8 +6,8 @@ namespace LapisAngularis\Senshu\Framework\DependencyInjection;
 interface DependencyManagerInterface
 {
     public function getContainer(string $name);
-    public function setContainer(string $name, $service);
-    public function bootMainConfig();
-    public function bootServices();
-    public function bootDevServices();
+    public function setContainer(string $name, $service): void;
+    public function bootMainConfig(): void;
+    public function bootServices(): void;
+    public function bootDevServices(): void;
 }

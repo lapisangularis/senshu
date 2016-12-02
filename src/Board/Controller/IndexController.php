@@ -8,7 +8,7 @@ use LapisAngularis\Senshu\Framework\Controller\BaseController;
 
 class IndexController extends BaseController
 {
-    public function indexAction()
+    public function indexAction(): HttpResponse
     {
         $content = $this->renderTemplate('index.html.twig', [
             'mainContent' => 'PHP7 based Imageboard'
@@ -18,12 +18,9 @@ class IndexController extends BaseController
             'content' => $content,
             'statusCode' => 200
         ]);
-//        return $this->redirectResponse([
-//            'url' => '/version'
-//        ]);
     }
 
-    public function testAction(string $text)
+    public function testAction(string $text): HttpResponse
     {
         $content = "Some text: " . $text;
 
@@ -33,7 +30,7 @@ class IndexController extends BaseController
         ]);
     }
 
-    public function versionAction()
+    public function versionAction(): HttpResponse
     {
         $content = $this->dependencyManager->getContainer('ophagacore.kernel')->getReleaseInfo();
 

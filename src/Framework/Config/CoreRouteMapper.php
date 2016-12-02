@@ -17,8 +17,7 @@ class CoreRouteMapper implements RouteMapperInterface
         $this->config['dependencyManager'] = $dependencyManager;
     }
 
-    public function createRoutes(): self
+    public function createRoutes(): void
     {
-        return $this;
     }
 }

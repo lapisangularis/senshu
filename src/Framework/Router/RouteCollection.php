@@ -7,51 +7,43 @@ class RouteCollection
 {
     private $routes = [];
 
-    public function addRoute(string $httpMethod, string $route, string $controller, string $action, array $config): self
+    public function addRoute(string $httpMethod, string $route, string $controller, string $action, array $config): void
     {
         $regex = Parser::parsePathToRegex($route);
         $variables = Parser::parsePathArguments($route);
         $fullPath = $config['classBasePath'] . '\\' . $controller;
         $collectionItem = new Route($httpMethod, $fullPath, $action, $regex, $variables, $config);
         $this->routes[] = $collectionItem;
-
-        return $this;
     }
 
-    public function get(string $route, string $controller, string $action, array $config): self
+    public function get(string $route, string $controller, string $action, array $config): void
     {
         $this->addRoute('GET', $route, $controller, $action, $config);
-        return $this;
     }
 
-    public function post(string $route, string $controller, string $action, array $config): self
+    public function post(string $route, string $controller, string $action, array $config): void
     {
         $this->addRoute('POST', $route, $controller, $action, $config);
-        return $this;
     }
 
-    public function put(string $route, string $controller, string $action, array $config): self
+    public function put(string $route, string $controller, string $action, array $config): void
     {
         $this->addRoute('PUT', $route, $controller, $action, $config);
-        return $this;
     }
 
-    public function delete(string $route, string $controller, string $action, array $config): self
+    public function delete(string $route, string $controller, string $action, array $config): void
     {
         $this->addRoute('DELETE', $route, $controller, $action, $config);
-        return $this;
     }
 
-    public function patch(string $route, string $controller, string $action, array $config): self
+    public function patch(string $route, string $controller, string $action, array $config): void
     {
         $this->addRoute('PATCH', $route, $controller, $action, $config);
-        return $this;
     }
 
-    public function head(string $route, string $controller, string $action, array $config): self
+    public function head(string $route, string $controller, string $action, array $config): void
     {
         $this->addRoute('HEAD', $route, $controller, $action, $config);
-        return $this;
     }
 
     public function getRoutes(): array

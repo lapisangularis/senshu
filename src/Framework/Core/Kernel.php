@@ -57,38 +57,30 @@ class Kernel
         return $this->getEnvironment() === 'dev' ? true : false;
     }
 
-    protected function initializeDependencyManager()
+    protected function initializeDependencyManager(): void
     {
         $this->dependencyManager = new CoreDependencyManager();
-
-        return $this;
     }
 
-    protected function initializeContainers()
+    protected function initializeContainers(): void
     {
         $this->initializeKernelContainer();
         $this->isDevMode() ? $this->dependencyManager->bootDevServices() : $this->dependencyManager->bootServices();
-
-        return $this;
     }
 
-    protected function bootConfig()
+    protected function bootConfig(): void
     {
         $this->dependencyManager->bootMainConfig();
         $container = $this->dependencyManager->getContainer('ophagacore.config.main');
         $this->isDevMode() ? $container->createDevConfig() : $container->createConfig();
-
-        return $this;
     }
 
-    protected function initializeKernelContainer()
+    protected function initializeKernelContainer(): void
     {
         $this->dependencyManager->setContainer('ophagacore.kernel', $this);
-
-        return $this;
     }
 
-    protected function handleDevErrors()
+    protected function handleDevErrors(): void
     {
         $errorHandler = $this->dependencyManager->getContainer('ophagacore.error.whoops');
         $prettyPageHandler = $this->dependencyManager->getContainer('ophagacore.error.prettypage');
@@ -102,22 +94,19 @@ class Kernel
         }
 
         $errorHandler->register();
-        return $this;
     }
 
-    protected function createRoutes()
+    protected function createRoutes(): void
     {
         $this->dependencyManager->getContainer('ophagacore.config.routes')->createRoutes();
-
-        return $this;
     }
 
-    protected function handle()
+    protected function handle(): void
     {
-        return $this->dependencyManager->getContainer('ophagacore.route.router')->matchRequest();
+        $this->dependencyManager->getContainer('ophagacore.route.router')->matchRequest();
     }
 
-    public function initialize()
+    public function initialize(): void
     {
         $this->initializeDependencyManager();
         $this->bootConfig();

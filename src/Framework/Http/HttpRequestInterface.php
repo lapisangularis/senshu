@@ -5,14 +5,14 @@ namespace LapisAngularis\Senshu\Framework\Http;
 
 interface HttpRequestInterface
 {
-    public function getParameter(string $key): mixed;
+    public function getParameter(string $key): ?string;
     public function getParameters(): array;
-    public function getGetParameter(string $key): mixed;
+    public function getGetParameter(string $key): ?string;
     public function getGetParameters(): array;
-    public function getPostParameter(string $key): mixed;
+    public function getPostParameter(string $key): ?string;
     public function getPostParameters(): array;
     public function getInput(): string;
-    public function getCookie(string $key): mixed;
+    public function getCookie(string $key): ?HttpCookie;
     public function getCookies(): array;
     public function getServerVariable(string $key): string;
     public function getUri(): string;

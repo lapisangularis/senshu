@@ -9,5 +9,5 @@ use LapisAngularis\Senshu\Framework\Router\RouteCollection;
 interface RouteMapperInterface
 {
     public function __construct(RouteCollection $collection, DependencyManagerInterface $dependencyManager);
-    public function createRoutes();
+    public function createRoutes(): void;
 }

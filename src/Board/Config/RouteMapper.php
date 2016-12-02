@@ -20,12 +20,10 @@ class RouteMapper implements RouteMapperInterface
         $this->config['dependencyManager'] = $dependencyManager;
     }
 
-    public function createRoutes(): self
+    public function createRoutes(): void
     {
         $this->collection->get('/', 'IndexController', 'indexAction', $this->config);
         $this->collection->get('/test/{text}', 'IndexController', 'testAction', $this->config);
         $this->collection->get('/version', 'IndexController', 'versionAction', $this->config);
-
-        return $this;
     }
 }

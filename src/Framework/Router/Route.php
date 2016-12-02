@@ -41,11 +41,9 @@ class Route
         return $this->regex;
     }
 
-    public function setArguments(array $arguments): self
+    public function setArguments(array $arguments): void
     {
         $this->arguments = $arguments;
-
-        return $this;
     }
 
     public function matches(string $str): bool
@@ -55,7 +53,7 @@ class Route
         return (bool) preg_match($regex, $str);
     }
 
-    public function dispatch()
+    public function dispatch(): void
     {
         $config = $this->config;
         $callback = [$this->controller, $this->action];
@@ -63,7 +61,5 @@ class Route
 
         $instance = isset($config['dependencyManager']) ? new $callback[0]($config['dependencyManager']) : new $callback[0];
         call_user_func_array([$instance, $this->action], $this->arguments);
-
-        return $instance;
     }
 }

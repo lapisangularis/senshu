@@ -24,46 +24,34 @@ class HttpCookie implements HttpCookieInterface
         return $this->name;
     }
 
-    public function setValue(string $value): self
+    public function setValue(string $value): void
     {
         $this->value = $value;
-
-        return $this;
     }
 
-    public function setMaxAge(int $seconds): self
+    public function setMaxAge(int $seconds): void
     {
         $this->maxAge = $seconds;
-
-        return $this;
     }
 
-    public function setDomain(string $domain): self
+    public function setDomain(string $domain): void
     {
         $this->domain = $domain;
-
-        return $this;
     }
 
-    public function setPath(string $path): self
+    public function setPath(string $path): void
     {
         $this->path = $path;
-
-        return $this;
     }
 
-    public function setSecure(bool $secure): self
+    public function setSecure(bool $secure): void
     {
         $this->secure = $secure;
-
-        return $this;
     }
 
-    public function setHttpOnly(bool $httpOnly): self
+    public function setHttpOnly(bool $httpOnly): void
     {
         $this->httpOnly = $httpOnly;
-
-        return $this;
     }
 
     public function getHeaderString(): string

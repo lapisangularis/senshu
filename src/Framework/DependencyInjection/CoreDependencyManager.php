@@ -29,21 +29,19 @@ class CoreDependencyManager implements DependencyManagerInterface
         return $this->services;
     }
 
-    public function setContainer(string $name, $service)
+    public function setContainer(string $name, $service): void
     {
        $this->services[$name] = $service;
-
-        return $this;
     }
 
-    public function bootMainConfig()
+    public function bootMainConfig(): void
     {
         $this->setContainer('ophagacore.config.main',
             new CoreMainConfig($this)
         );
     }
 
-    public function bootServices()
+    public function bootServices(): void
     {
         $this->setContainer('ophagacore.error.whoops',
             new Run()
@@ -89,14 +87,10 @@ class CoreDependencyManager implements DependencyManagerInterface
                 $this->getContainer('ophagacore.templates')
             )
         );
-
-        return $this;
     }
 
-    public function bootDevServices()
+    public function bootDevServices(): void
     {
         $this->bootServices();
-
-        return $this;
     }
 }

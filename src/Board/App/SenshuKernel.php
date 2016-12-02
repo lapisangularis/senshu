@@ -10,17 +10,13 @@ class SenshuKernel extends Kernel
 {
     protected $dependencyManager;
 
-    protected function initializeDependencyManager()
+    protected function initializeDependencyManager(): void
     {
         $this->dependencyManager = new SenshuDependencyManager();
-
-        return $this;
     }
 
-    protected function createRoutes()
+    protected function createRoutes(): void
     {
         $this->dependencyManager->getContainer('senshu.config.routes')->createRoutes();
-
-        return $this;
     }
 }

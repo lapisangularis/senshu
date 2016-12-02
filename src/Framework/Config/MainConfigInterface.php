@@ -9,7 +9,7 @@ interface MainConfigInterface
 {
     public function __construct(DependencyManagerInterface $dependencyManager);
     public function getConfigs(): array;
-    public function getConfig(string $name);
-    public function createConfig();
-    public function createDevConfig();
+    public function getConfig(string $name): string;
+    public function createConfig(): void;
+    public function createDevConfig(): void;
 }

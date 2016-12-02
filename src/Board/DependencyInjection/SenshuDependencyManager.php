@@ -9,21 +9,19 @@ use LapisAngularis\Senshu\Board\Config\RouteMapper;
 
 class SenshuDependencyManager extends CoreDependencyManager
 {
-    public function bootMainConfig()
+    public function bootMainConfig(): void
     {
         $this->setContainer('ophagacore.config.main',
             new SenshuMainConfig($this)
         );
     }
 
-    public function bootServices(): self
+    public function bootServices(): void
     {
         parent::bootServices();
 
         $this->setContainer('senshu.config.routes',
             new RouteMapper($this->getContainer('ophagacore.route.collection'), $this)
         );
-
-        return $this;
     }
 }
