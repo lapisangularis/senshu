@@ -13,7 +13,7 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.1",
     "filp/whoops": "^2.1",
     "twig/twig": "^1.28"
   },
