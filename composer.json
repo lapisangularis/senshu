@@ -13,8 +13,9 @@
     }
   ],
   "require": {
-    "php": ">=7.0",
-    "filp/whoops": "^2.1"
+    "php": ">=7.1",
+    "filp/whoops": "^2.1",
+    "twig/twig": "^1.28"
   },
   "require-dev": {
     "phpunit/phpunit": "^5.6"

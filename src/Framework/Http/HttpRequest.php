@@ -14,7 +14,7 @@ class HttpRequest implements HttpRequestInterface
     public function __construct(
         array $get,
         array $post,
-        array $cookies,
+        iterable $cookies,
         array $server,
         string $input = ''
     ) {
@@ -25,7 +25,7 @@ class HttpRequest implements HttpRequestInterface
         $this->input = $input;
     }
 
-    public function getParameter(string $key): mixed
+    public function getParameter(string $key): ?string
     {
         if (array_key_exists($key, $this->postParameters)) {
             return $this->postParameters[$key];
@@ -38,10 +38,10 @@ class HttpRequest implements HttpRequestInterface
 
     public function getParameters(): array
     {
-        return array_merge($this->getParameters, $this->postParameters);
+        return array_merge($this->getGetParameters, $this->getPostParameters);
     }
 
-    public function getGetParameter(string $key) : mixed
+    public function getGetParameter(string $key): ?string
     {
         if (array_key_exists($key, $this->getParameters)) {
             return $this->getParameters[$key];
@@ -54,7 +54,7 @@ class HttpRequest implements HttpRequestInterface
         return $this->getParameters;
     }
 
-    public function getPostParameter(string $key): mixed
+    public function getPostParameter(string $key): ?string
     {
         if (array_key_exists($key, $this->postParameters)) {
             return $this->postParameters[$key];
@@ -67,7 +67,7 @@ class HttpRequest implements HttpRequestInterface
         return $this->postParameters;
     }
 
-    public function getCookie(string $key): mixed
+    public function getCookie(string $key): ?HttpCookie
     {
         if (array_key_exists($key, $this->cookies)) {
             return $this->cookies[$key];
@@ -80,7 +80,7 @@ class HttpRequest implements HttpRequestInterface
         return $this->input;
     }
 
-    public function getCookies(): array
+    public function getCookies(): iterable
     {
         return $this->cookies;
     }

@@ -5,18 +5,30 @@ namespace LapisAngularis\Senshu\Framework\Router;
 
 class Route
 {
-    private $method;
-    private $regex;
-    private $variables;
-    private $arguments;
-    private $handler;
+    protected $method;
+    protected $regex;
+    protected $variables;
+    protected $arguments;
+    protected $controller;
+    protected $action;
+    protected $callback;
+    protected $config;
 
-    public function __construct(string $method, callable $handler, string $regex, array $variables)
+    public function __construct(
+        string $method,
+        string $controller,
+        string $action,
+        string $regex,
+        array $variables,
+        array $config
+    )
     {
         $this->method = $method;
-        $this->handler = $handler;
+        $this->controller = $controller;
+        $this->action = $action;
         $this->regex = $regex;
         $this->variables = $variables;
+        $this->config = $config;
     }
 
     public function getMethod(): string
@@ -29,11 +41,9 @@ class Route
         return $this->regex;
     }
 
-    public function setArguments(array $arguments): self
+    public function setArguments(array $arguments): void
     {
         $this->arguments = $arguments;
-
-        return $this;
     }
 
     public function matches(string $str): bool
@@ -43,10 +53,13 @@ class Route
         return (bool) preg_match($regex, $str);
     }
 
-    public function dispatch()
+    public function dispatch(): void
     {
-        $callback = call_user_func_array($this->handler, $this->arguments);
+        $config = $this->config;
+        $callback = [$this->controller, $this->action];
+        $this->callback = !empty($callback[1]) && trim($callback[1]) !== '' ? $callback[1] : null;
 
-        return $callback;
+        $instance = isset($config['dependencyManager']) ? new $callback[0]($config['dependencyManager']) : new $callback[0];
+        call_user_func_array([$instance, $this->action], $this->arguments);
     }
 }

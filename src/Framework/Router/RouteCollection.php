@@ -7,60 +7,46 @@ class RouteCollection
 {
     private $routes = [];
 
-    public function addRoute(string $httpMethod, string $route, callable $handler): self
+    public function addRoute(string $httpMethod, string $route, string $controller, string $action, array $config): void
     {
         $regex = Parser::parsePathToRegex($route);
         $variables = Parser::parsePathArguments($route);
-
-        $collectionItem = new Route($httpMethod, $handler, $regex, $variables);
+        $fullPath = $config['classBasePath'] . '\\' . $controller;
+        $collectionItem = new Route($httpMethod, $fullPath, $action, $regex, $variables, $config);
         $this->routes[] = $collectionItem;
-
-        return $this;
     }
 
-    public function get(string $route, callable $handler): self
+    public function get(string $route, string $controller, string $action, array $config): void
     {
-        $this->addRoute('GET', $route, $handler);
-
-        return $this;
+        $this->addRoute('GET', $route, $controller, $action, $config);
     }
 
-    public function post(string $route, callable $handler): self
+    public function post(string $route, string $controller, string $action, array $config): void
     {
-        $this->addRoute('POST', $route, $handler);
-
-        return $this;
+        $this->addRoute('POST', $route, $controller, $action, $config);
     }
 
-    public function put(string $route, callable $handler): self
+    public function put(string $route, string $controller, string $action, array $config): void
     {
-        $this->addRoute('PUT', $route, $handler);
-
-        return $this;
+        $this->addRoute('PUT', $route, $controller, $action, $config);
     }
 
-    public function delete(string $route, callable $handler): self
+    public function delete(string $route, string $controller, string $action, array $config): void
     {
-        $this->addRoute('DELETE', $route, $handler);
-
-        return $this;
+        $this->addRoute('DELETE', $route, $controller, $action, $config);
     }
 
-    public function patch(string $route, callable $handler): self
+    public function patch(string $route, string $controller, string $action, array $config): void
     {
-        $this->addRoute('PATCH', $route, $handler);
-
-        return $this;
+        $this->addRoute('PATCH', $route, $controller, $action, $config);
     }
 
-    public function head(string $route, callable $handler): self
+    public function head(string $route, string $controller, string $action, array $config): void
     {
-        $this->addRoute('HEAD', $route, $handler);
-
-        return $this;
+        $this->addRoute('HEAD', $route, $controller, $action, $config);
     }
 
-    public function getRoutes(): array
+    public function getRoutes(): iterable
     {
         return $this->routes;
     }

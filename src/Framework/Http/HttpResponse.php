@@ -16,11 +16,9 @@ class HttpResponse implements HttpResponseInterface
         return $this->statusCode;
     }
 
-    public function setStatusCode(int $statusCode): self
+    public function setStatusCode(int $statusCode): void
     {
         $this->statusCode = $statusCode;
-
-        return $this;
     }
 
     public function getHeaders(): array
@@ -33,36 +31,35 @@ class HttpResponse implements HttpResponseInterface
         return $headers;
     }
 
-    public function addHeader(string $name, string $value): self
+    public function addHeader(string $name, string $value): void
     {
         $this->headers[$name][] = $value;
-
-        return $this;
     }
 
-    public function setHeader(string $name, string $value): self
+    public function setHeader(string $name, string $value): void
     {
         $this->headers[$name] = [
             $value,
         ];
-
-        return $this;
     }
 
-    public function addCookie(HttpCookie $cookie): self
+    public function sendAllHttpHeaders(): void
+    {
+        foreach ($this->getHeaders() as $header) {
+            header($header, false);
+        }
+    }
+
+    public function addCookie(HttpCookie $cookie): void
     {
         $this->cookies[$cookie->getName()] = $cookie;
-
-        return $this;
     }
 
-    public function deleteCookie(HttpCookie $cookie): self
+    public function deleteCookie(HttpCookie $cookie): void
     {
         $cookie->setValue('');
         $cookie->setMaxAge(-1);
         $this->cookies[$cookie->getName()] = $cookie;
-
-        return $this;
     }
 
     public function getContent(): string
@@ -70,20 +67,17 @@ class HttpResponse implements HttpResponseInterface
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(string $content): void
     {
         $this->content = $content;
-
-        return $this;
     }
 
-    public function redirect(string $url): self
+    public function redirect(string $url): void
     {
         $this->setHeader('Location', $url);
         $this->setStatusCode(301);
-
-        return $this;
     }
+
     private function getRequestLineHeaders(): array
     {
         $headers = [];
