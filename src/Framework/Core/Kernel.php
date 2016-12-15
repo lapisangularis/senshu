@@ -8,12 +8,12 @@ use LapisAngularis\Senshu\Framework\DependencyInjection\CoreDependencyManager;
 class Kernel
 {
     public const NAME = 'OphagaCore';
-    public const VERSION = '0.0.9';
+    public const VERSION = '0.0.10';
     public const RELEASE_VERSION = 0;
     public const FEATURE_VERSION = 0;
-    public const PATCH_VERSION = 9;
+    public const PATCH_VERSION = 10;
     public const VERSION_CODENAME = 'alpha';
-    public const VERSION_ID = 9;
+    public const VERSION_ID = 10;
 
     protected $env = 'prod';
     protected $dependencyManager;
