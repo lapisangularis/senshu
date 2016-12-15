@@ -13,12 +13,14 @@ class Route
     protected $action;
     protected $callback;
     protected $config;
+    protected $originalPath;
 
     public function __construct(
         string $method,
         string $controller,
         string $action,
         string $regex,
+        string $originalPath,
         array $variables,
         array $config
     )
@@ -29,6 +31,7 @@ class Route
         $this->regex = $regex;
         $this->variables = $variables;
         $this->config = $config;
+        $this->originalPath = $originalPath;
     }
 
     public function getMethod(): string
@@ -39,6 +42,21 @@ class Route
     public function getRegex(): string
     {
         return $this->regex;
+    }
+
+    public function getOriginalPath(): string
+    {
+        return $this->originalPath;
+    }
+
+    public function getVariables(): ?array
+    {
+        return $this->variables;
+    }
+
+    public function getArguments(): ?array
+    {
+        return $this->arguments;
     }
 
     public function setArguments(array $arguments): void

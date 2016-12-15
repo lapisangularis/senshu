@@ -4,9 +4,9 @@ declare(strict_types = 1);
 namespace LapisAngularis\Senshu\Framework\Service\Template;
 
 use LapisAngularis\Senshu\Framework\Config\MainConfigInterface;
-use LapisAngularis\Senshu\Framework\Service\CompositeInterface;
+use LapisAngularis\Senshu\Framework\Service\ServiceInterface;
 
-class TemplateEngine implements CompositeInterface
+class TemplateEngine implements ServiceInterface
 {
     protected $templateEngines = [];
     protected $config;

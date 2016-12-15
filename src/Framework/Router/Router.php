@@ -39,4 +39,15 @@ class Router
             $route->dispatch();
         }
     }
+
+    public function generateUrl(string $action, array $arguments = []): ?string
+    {
+        $route = $this->routeCollection->getRoutes()[$action];
+        $path = $route->getOriginalPath();
+        $variables = $route->getVariables();
+
+        $url = Parser::parsePathToUrl($path, $variables, $arguments);
+
+        return $url;
+    }
 }

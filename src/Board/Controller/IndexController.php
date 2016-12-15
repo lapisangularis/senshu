@@ -10,7 +10,7 @@ class IndexController extends BaseController
 {
     public function indexAction(): HttpResponse
     {
-        $content = $this->renderTemplate('index.html.twig', [
+        $content = $this->renderTemplate('exampletemplate/actions/index.html.twig', [
             'mainContent' => 'PHP7 based Imageboard'
         ]);
 
@@ -22,7 +22,9 @@ class IndexController extends BaseController
 
     public function testAction(string $text): HttpResponse
     {
-        $content = "Some text: " . $text;
+        $content = $this->renderTemplate('exampletemplate/actions/test.html.twig', [
+            'text' => $text
+        ]);
 
         return $this->standardResponse([
             'content' => $content,
@@ -32,7 +34,7 @@ class IndexController extends BaseController
 
     public function versionAction(): HttpResponse
     {
-        $content = $this->dependencyManager->getContainer('ophagacore.kernel')->getReleaseInfo();
+        $content = $this->renderTemplate('exampletemplate/actions/version.html.twig');
 
         return $this->standardResponse([
             'content' => $content,

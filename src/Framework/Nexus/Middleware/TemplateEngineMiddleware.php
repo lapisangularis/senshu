@@ -4,10 +4,11 @@ declare(strict_types = 1);
 namespace LapisAngularis\Senshu\Framework\Nexus\Middleware;
 
 use LapisAngularis\Senshu\Framework\Config\MainConfigInterface;
+use LapisAngularis\Senshu\Framework\Nexus\MiddlewareInterface;
 use LapisAngularis\Senshu\Framework\Nexus\UtilsInterface;
-use LapisAngularis\Senshu\Framework\Service\CompositeInterface;
+use LapisAngularis\Senshu\Framework\Service\ServiceInterface;
 
-class TemplateEngineMiddleware
+class TemplateEngineMiddleware implements MiddlewareInterface
 {
     protected $config;
     protected $templateUtils;
@@ -16,7 +17,7 @@ class TemplateEngineMiddleware
     public function __construct(
         MainConfigInterface $config,
         UtilsInterface $templateUtils,
-        CompositeInterface $templateComposite)
+        ServiceInterface $templateComposite)
     {
         $this->config = $config->getConfigs();
         $this->templateUtils = $templateUtils;

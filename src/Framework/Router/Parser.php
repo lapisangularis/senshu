@@ -36,4 +36,15 @@ class Parser
         isset($matches[1]) ? $matches[1] : $matches[1][] = null;
         return $matches[1];
     }
+
+    public static function parsePathToUrl(string $path, array $variables, array $arguments): string
+    {
+        foreach ($variables as $variable) {
+            $path = preg_replace_callback('/\{'.$variable.'\}/', function() use ($arguments, $variable) {
+                return $arguments[$variable];
+            }, $path);
+        }
+
+        return $path;
+    }
 }

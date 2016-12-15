@@ -19,4 +19,12 @@ class CoreTemplateUtils implements UtilsInterface
     {
         return $this->dependencyManager->getContainer('ophagacore.kernel')->getReleaseInfo();
     }
+
+    public function generateUrl(string $action, array $arguments = []): ?string
+    {
+        return $this->dependencyManager
+            ->getContainer('ophagacore.route.router')
+            ->generateUrl($action, $arguments)
+        ;
+    }
 }
