@@ -4,16 +4,18 @@ declare(strict_types = 1);
 namespace LapisAngularis\Senshu\Framework\Core;
 
 use LapisAngularis\Senshu\Framework\DependencyInjection\CoreDependencyManager;
+use Whoops\Run;
+use Whoops\Handler\PrettyPageHandler;
 
 class Kernel
 {
     public const NAME = 'OphagaCore';
-    public const VERSION = '0.0.10';
+    public const VERSION = '0.0.11';
     public const RELEASE_VERSION = 0;
     public const FEATURE_VERSION = 0;
-    public const PATCH_VERSION = 10;
+    public const PATCH_VERSION = 11;
     public const VERSION_CODENAME = 'alpha';
-    public const VERSION_ID = 10;
+    public const VERSION_ID = 11;
 
     protected $env = 'prod';
     protected $dependencyManager;
@@ -46,7 +48,7 @@ class Kernel
     public function getReleaseInfo(): string
     {
         return (string) $this->getCoreName() . ' '
-            . $this->getVersion() . ' '
+            . $this->getVersion() . ', env:'
             . $this->getEnvironment() . ', version id: '
             . $this->getVersionId()
         ;
@@ -82,8 +84,8 @@ class Kernel
 
     protected function handleDevErrors(): void
     {
-        $errorHandler = $this->dependencyManager->getContainer('ophagacore.error.whoops');
-        $prettyPageHandler = $this->dependencyManager->getContainer('ophagacore.error.prettypage');
+        $errorHandler = new Run();
+        $prettyPageHandler = new PrettyPageHandler();
 
         if ($this->env !== 'prod') {
             $errorHandler->pushHandler($prettyPageHandler);
@@ -108,10 +110,10 @@ class Kernel
 
     public function initialize(): void
     {
+        $this->handleDevErrors();
         $this->initializeDependencyManager();
         $this->bootConfig();
         $this->initializeContainers();
-        $this->handleDevErrors();
         $this->createRoutes();
         $this->handle();
     }

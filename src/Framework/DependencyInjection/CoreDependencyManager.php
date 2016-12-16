@@ -5,6 +5,7 @@ namespace LapisAngularis\Senshu\Framework\DependencyInjection;
 
 use LapisAngularis\Senshu\Framework\Config\CoreRouteMapper;
 use LapisAngularis\Senshu\Framework\Config\CoreMainConfig;
+use LapisAngularis\Senshu\Framework\Database\PDO\PDOWrapper;
 use LapisAngularis\Senshu\Framework\Http\HttpRequest;
 use LapisAngularis\Senshu\Framework\Nexus\Middleware\TemplateEngineMiddleware;
 use LapisAngularis\Senshu\Framework\Nexus\TemplateEngine\CoreTemplateUtils;
@@ -43,14 +44,6 @@ class CoreDependencyManager implements DependencyManagerInterface
 
     public function bootServices(): void
     {
-        $this->setContainer('ophagacore.error.whoops',
-            new Run()
-        );
-
-        $this->setContainer('ophagacore.error.prettypage',
-            new PrettyPageHandler()
-        );
-
         $this->setContainer('ophagacore.http.request',
             new HttpRequest($_GET, $_POST, $_COOKIE, $_SERVER)
         );
@@ -85,6 +78,12 @@ class CoreDependencyManager implements DependencyManagerInterface
                 $this->getContainer('ophagacore.config.main'),
                 $this->getContainer('ophagacore.utils.templates'),
                 $this->getContainer('ophagacore.templates')
+            )
+        );
+
+        $this->setContainer('ophagacore.pdo.wrapper',
+            new PDOWrapper(
+                $this->getContainer('ophagacore.config.main')
             )
         );
     }
