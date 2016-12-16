@@ -13,8 +13,6 @@ use LapisAngularis\Senshu\Framework\Router\RouteCollection;
 use LapisAngularis\Senshu\Framework\Router\Router;
 use LapisAngularis\Senshu\Framework\Service\Template\TemplateEngine;
 use LapisAngularis\Senshu\Framework\Service\Template\TwigService;
-use Whoops\Run;
-use Whoops\Handler\PrettyPageHandler;
 
 class CoreDependencyManager implements DependencyManagerInterface
 {
