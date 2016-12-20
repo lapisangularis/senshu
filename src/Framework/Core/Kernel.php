@@ -10,12 +10,12 @@ use Whoops\Handler\PrettyPageHandler;
 class Kernel
 {
     public const NAME = 'OphagaCore';
-    public const VERSION = '0.0.11';
+    public const VERSION = '0.0.12';
     public const RELEASE_VERSION = 0;
     public const FEATURE_VERSION = 0;
-    public const PATCH_VERSION = 11;
+    public const PATCH_VERSION = 12;
     public const VERSION_CODENAME = 'alpha';
-    public const VERSION_ID = 11;
+    public const VERSION_ID = 12;
 
     protected $env = 'prod';
     protected $dependencyManager;

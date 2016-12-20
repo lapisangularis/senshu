@@ -5,6 +5,7 @@ namespace LapisAngularis\Senshu\Framework\Database\PDO;
 
 use LapisAngularis\Senshu\Framework\Config\MainConfigInterface;
 use LapisAngularis\Senshu\Framework\Database\DatabaseInterface;
+use LapisAngularis\Senshu\Framework\Model\EntityInterface;
 use \PDO;
 use \PDOStatement;
 
@@ -49,5 +50,10 @@ class PDOWrapper implements DatabaseInterface
         $statement->execute($args);
 
         return $statement;
+    }
+
+    public function fetchObject(PDOStatement $statement, string $class): EntityInterface
+    {
+        return $statement->fetchObject($class);
     }
 }
