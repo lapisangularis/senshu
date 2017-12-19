@@ -20,7 +20,7 @@ class CoreMainConfig implements MainConfigInterface
         return $this->config;
     }
 
-    public function getConfig(string $name): string
+    public function getConfig(string $name)
     {
         return $this->config[$name];
     }

@@ -9,11 +9,7 @@ class SenshuMainConfig extends CoreMainConfig
 {
     public function createConfig(): void
     {
-        $config = [
-            'twig.resource.path' => __DIR__.'/../Resources/Templates',
-            'twig.compilation.cache' => __DIR__.'/../../../cache/twig',
-            'template.engine' => 'twig'
-        ];
+        require_once __DIR__ . '/../../../config/config.php';
 
         $this->config = $config;
     }
@@ -21,6 +17,10 @@ class SenshuMainConfig extends CoreMainConfig
     public function createDevConfig(): void
     {
         $this->createConfig();
-        $this->config['twig.compilation.cache'] = false;
+        $config = $this->config;
+
+        require_once __DIR__ . '/../../../config/config_dev.php';
+
+        $this->config = $config;
     }
 }

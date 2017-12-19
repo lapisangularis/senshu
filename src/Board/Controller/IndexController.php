@@ -5,12 +5,22 @@ namespace LapisAngularis\Senshu\Board\Controller;
 
 use LapisAngularis\Senshu\Framework\Http\HttpResponse;
 use LapisAngularis\Senshu\Framework\Controller\BaseController;
+use LapisAngularis\Senshu\Framework\DependencyInjection\DependencyManagerInterface;
 
 class IndexController extends BaseController
 {
+    private $userRepository;
+
+    public function __construct(DependencyManagerInterface $dependencyManager)
+    {
+        parent::__construct($dependencyManager);
+
+        $this->userRepository = $dependencyManager->getContainer('senshu.user.repository');
+    }
+
     public function indexAction(): HttpResponse
     {
-        $content = $this->renderTemplate('index.html.twig', [
+        $content = $this->renderTemplate('exampletemplate/actions/index.html.twig', [
             'mainContent' => 'PHP7 based Imageboard'
         ]);
 
@@ -20,9 +30,13 @@ class IndexController extends BaseController
         ]);
     }
 
-    public function testAction(string $text): HttpResponse
+    public function testAction(int $id): HttpResponse
     {
-        $content = "Some text: " . $text;
+        $user = $this->userRepository->findById($id);
+
+        $content = $this->renderTemplate('exampletemplate/actions/test.html.twig', [
+            'user' => $user
+        ]);
 
         return $this->standardResponse([
             'content' => $content,
@@ -32,7 +46,7 @@ class IndexController extends BaseController
 
     public function versionAction(): HttpResponse
     {
-        $content = $this->dependencyManager->getContainer('ophagacore.kernel')->getReleaseInfo();
+        $content = $this->renderTemplate('exampletemplate/actions/version.html.twig');
 
         return $this->standardResponse([
             'content' => $content,
